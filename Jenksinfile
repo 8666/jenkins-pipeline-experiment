@@ -8,18 +8,22 @@ pipeline {
         }
         stage('Example Deploy') {
             when { branch 'main' }
-            }
             steps {
                 echo 'Deploying'
                 echo "${BRANCH_NAME}"
-                MY_NAME="prod"
+                script {
+                    FOO = "test2"
+                    env.BAR = "bar2"
+                }
             }
         }
         stage('Final') {
             steps {
-                echo "${MY_NAME}"
+                echo "${FOO}"
+                echo "${env.BAR}"
 
             
+            }
         }
     }
 }
