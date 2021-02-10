@@ -16,7 +16,7 @@ pipeline {
             }
             steps {
                 echo 'Deploying'
-                echo ${DEPLOY_TO}
+                echo "${DEPLOY_TO}"
             }
         }
     }
