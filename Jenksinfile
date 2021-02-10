@@ -7,16 +7,18 @@ pipeline {
             }
         }
         stage('Example Deploy') {
-            when {
-                expression { BRANCH_NAME ==~ /(main|staging)/ }
-                anyOf {
-                    environment name: 'DEPLOY_TO', value: 'main'
-                    environment name: 'DEPLOY_TO', value: 'staging'
-                }
+            when { branch 'main' }
             }
             steps {
                 echo 'Deploying'
-                echo "${DEPLOY_TO}"
+                echo "${BRANCH_NAME}"
+                MY_NAME="prod"
+            }
+        }
+        stage('Final') {
+            steps {
+                echo "${MY_NAME}"
+
             }
         }
     }
