@@ -2,8 +2,9 @@ pipeline {
     agent any
     stages {
         stage('Fake Build') {
+        when { not { anyOf { branch 'develop'; branch 'main' }}}
             steps {
-                echo 'Hello World'
+                echo 'Something else'
             }
         }
         stage('Fake Main Deploy') {
