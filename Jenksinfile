@@ -51,7 +51,7 @@ pipeline {
         when {
            expression {
            echo "BRANCH_NAME ${BRANCH_NAME}"
-           return ("${BRANCH_NAME}"=="develop")
+           return ("${BRANCH_NAME}"=="main")
            }
            }
          
