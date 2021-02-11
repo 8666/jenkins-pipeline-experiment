@@ -28,14 +28,8 @@ pipeline {
         stage('Env Vars') {
             agent { label 'master' }
             steps {
-               script {
-                   def fields = env.getEnvironment()
-                   fields.each {
-                        key, value -> println("${key} = ${value}");
-                    }
- 
-                    println(env.PATH)
-               }
+              // bat('set')
+               sh "printenv | sort"
             }
         }
     }
