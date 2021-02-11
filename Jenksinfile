@@ -1,12 +1,16 @@
 pipeline {
-      agent {
-    node {
-      label 'linux'
+    agent {
+        node {
+            label 'linux'
+        }
     }
-      environment {
-      FOO = "1.0.${BUILD_NUMBER}"
-      BAR = "xyz"
-   }
+    environment {
+        FOO = "1.0.${BUILD_NUMBER}"
+        BAR = "xyz"
+    }    
+    options { 
+        disableConcurrentBuilds() 
+    }
     stages {
         stage('Fake Build') {
         when { not { anyOf { branch 'develop'; branch 'main' }}}
@@ -40,7 +44,6 @@ pipeline {
             steps {
                 echo "${FOO}"
                 echo "${env.BAR}"
-
             
             }
         }
@@ -48,14 +51,14 @@ pipeline {
             agent { label 'master' }
             steps {
               // bat('set')
-               sh "printenv | sort"
+            sh "printenv | sort"
             }
         }
         
         
-       stage('Main branch only') {
+        stage('Main branch only') {
             when {
-                 branch 'main' 
+            branch 'main' 
             }
             stages {
                 stage('Main 1') {
