@@ -1,5 +1,9 @@
 pipeline {
-    agent any
+    agent linux
+      environment {
+      FOO = "1.0.${BUILD_NUMBER}"
+      BAR = "xyz"
+   }
     stages {
         stage('Fake Build') {
         when { not { anyOf { branch 'develop'; branch 'main' }}}
