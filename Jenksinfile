@@ -4,7 +4,7 @@ pipeline {
         stage('Fake Build') {
         when { not { anyOf { branch 'develop'; branch 'main' }}}
             steps {
-                echo 'Something else'
+                echo 'Something else, like random'
             }
         }
         stage('Fake Main Deploy') {
