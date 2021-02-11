@@ -48,7 +48,13 @@ pipeline {
             }
         }
         stage('Env Vars') {
-            agent { label 'master' }
+        when {
+           expression {
+           echo "BRANCH_NAME ${BRANCH_NAME}"
+           return ("${BRANCH_NAME}"=="develop")
+           }
+           }
+         
             steps {
               // bat('set')
             sh "printenv | sort"
