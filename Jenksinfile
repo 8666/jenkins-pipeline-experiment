@@ -1,5 +1,8 @@
 pipeline {
-    agent linux
+      agent {
+    node {
+      label 'linux'
+    }
       environment {
       FOO = "1.0.${BUILD_NUMBER}"
       BAR = "xyz"
