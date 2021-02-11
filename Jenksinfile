@@ -1,12 +1,12 @@
 pipeline {
     agent any
     stages {
-        stage('Example Build') {
+        stage('Fake Build') {
             steps {
                 echo 'Hello World'
             }
         }
-        stage('Example Deploy') {
+        stage('Fake Deploy') {
             when { branch 'main' }
             steps {
                 echo 'Deploying'
@@ -23,6 +23,19 @@ pipeline {
                 echo "${env.BAR}"
 
             
+            }
+        }
+        stage('Env Vars') {
+            agent { label 'master' }
+            steps {
+               script {
+                   def fields = env.getEnvironment()
+                   fields.each {
+                        key, value -> println("${key} = ${value}");
+                    }
+ 
+                    println(env.PATH)
+               }
             }
         }
     }
