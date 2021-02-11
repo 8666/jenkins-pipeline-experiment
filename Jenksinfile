@@ -32,5 +32,34 @@ pipeline {
                sh "printenv | sort"
             }
         }
+        
+        
+       stage('Main branch only') {
+            when {
+                 branch 'main' 
+            }
+            stages {
+                stage('Main 1') {
+                    steps {
+                        echo 'Building'
+                    }
+                }
+                stage('Main 2') {
+                    steps {
+                        echo 'Archiving Aritfacts'
+                       /// archiveArtifacts artifacts: '/*.zip', fingerprint: true
+                    }
+                }
+                stage('Main 3') {
+                    steps {
+                        echo 'Deploying'
+                      ///  timeout(time:3, unit:'DAYS') {
+                      ///     input message: "Approve build?"
+                      ///  }
+                    }
+                }
+            }
+
+        }
     }
 }
