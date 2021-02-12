@@ -101,9 +101,9 @@ pipeline {
                 stage('Main 3') {
                     steps {
                         echo 'Deploying'
-                      ///  timeout(time:3, unit:'DAYS') {
-                      ///     input message: "Approve build?"
-                      ///  }
+                        timeout(time:5, unit:'MINUTES') {
+                           input message: "Approve build?"
+                        }
                     }
                 }
             }
