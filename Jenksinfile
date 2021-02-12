@@ -44,6 +44,26 @@ pipeline {
             steps {
                 echo "${FOO}"
                 echo "${env.BAR}"
+                sh 'mkdir SUBFOLDER"
+                sh 'pwd'
+            
+            }
+        }
+        stage('Subfolder') {
+            steps {
+                dir(path: 'SUBFOLDER') {
+                  echo 'Inside subf..'
+                  sh 'pwd'
+                }
+                echo 'Outside subf..'
+                sh 'pwd'
+            
+            }
+        }
+        stage('Subfolder2') {
+            steps {
+                echo 'Outside subf..'
+                sh 'pwd'
             
             }
         }
