@@ -44,7 +44,7 @@ pipeline {
             steps {
                 echo "${FOO}"
                 echo "${env.BAR}"
-                sh 'mkdir SUBFOLDER"
+                sh 'mkdir SUBFOLDER'
                 sh 'pwd'
             
             }
