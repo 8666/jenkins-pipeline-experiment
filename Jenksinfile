@@ -24,10 +24,8 @@ pipeline {
             when { branch 'main' }
             steps {
                   echo "Repacking ${appName} UI..."
-                  echo "echo CreateNugetPackage.ps1 'Interoperabillity-${appName}' '..\\..\\..\\Interoperabillity-${appName}.zip' ${VERSION}"
-                  bat "echo AppName=Interop-${appName}-UI /p:BuildNumber=${VERSION}"
-                  powershell "echo  Interoperability-${appName}-UI.zip"
-                  powershell "echo CreateNugetPackage.ps1 'Interoperabillity-${appName}' ${VERSION}"
+                  echo "jjj 'Interoperabillity-${appName}' ${appName}.zip ${VERSION}"
+
                   
    
                   
