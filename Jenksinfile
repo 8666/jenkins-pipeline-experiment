@@ -5,8 +5,10 @@ pipeline {
         }
     }
     environment {
+    
         FOO = "1.0.${BUILD_NUMBER}"
         BAR = "xyz"
+        appName = "ConfigurationPortal" 
     }    
     options { 
         disableConcurrentBuilds() 
@@ -21,6 +23,13 @@ pipeline {
         stage('Fake Main Deploy') {
             when { branch 'main' }
             steps {
+                  echo 'Repacking ${appName} UI...'
+                  bat "echo .\\Scripts\\AWS\\Beanstalk\\Deploy\\BeantstalkDeploy.targets.msbuild /t:CreatePackage /p:AppName=Interop-${appName}-UI /p:BuildNumber=${VERSION}"
+                  powershell "echo Rename-Item .\\BuildOutput\\DeployPackage.zip Interoperability-${appName}-UI.zip"
+                  powershell "echo CreateNugetPackage.ps1 'Interoperabillity-${appName}' '..\\..\\..\\Interoperabillity-${appName}.zip' ${VERSION}"
+   
+                  
+                  
                 echo 'Deploying'
                 echo "${BRANCH_NAME}"
                 script {
