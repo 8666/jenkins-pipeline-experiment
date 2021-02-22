@@ -24,7 +24,10 @@ pipeline {
             when { branch 'main' }
             steps {
                   echo "Repacking ${appName} UI..."
-                  echo "jjj 'Interoperabillity-${appName}' ${appName}.zip ${VERSION}"
+                    echo "Repacking '${appName}' UI..."
+                      echo 'Repacking ${appName} UI...'
+                        echo 'Repacking "${appName}" UI...'
+
 
                   
    
