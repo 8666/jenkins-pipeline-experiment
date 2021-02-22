@@ -24,10 +24,11 @@ pipeline {
             when { branch 'main' }
             steps {
                   echo "Repacking ${appName} UI..."
-                  bat "echo .\\Scripts\\AWS\\Beanstalk\\Deploy\\BeantstalkDeploy.targets.msbuild /t:CreatePackage /p:AppName=Interop-${appName}-UI /p:BuildNumber=${VERSION}"
-                  powershell "echo Rename-Item .\\BuildOutput\\DeployPackage.zip Interoperability-${appName}-UI.zip"
-                  powershell "echo CreateNugetPackage.ps1 'Interoperabillity-${appName}' '..\\..\\..\\Interoperabillity-${appName}.zip' ${VERSION}"
                   echo "echo CreateNugetPackage.ps1 'Interoperabillity-${appName}' '..\\..\\..\\Interoperabillity-${appName}.zip' ${VERSION}"
+                  bat "echo AppName=Interop-${appName}-UI /p:BuildNumber=${VERSION}"
+                  powershell "echo  Interoperability-${appName}-UI.zip"
+                  powershell "echo CreateNugetPackage.ps1 'Interoperabillity-${appName}' ${VERSION}"
+                  
    
                   
                   
