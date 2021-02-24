@@ -29,6 +29,9 @@ pipeline {
                 }   
             when { branch 'main' }
             steps {
+                          timeout(time:2, unit:'MINUTES') {
+                           input message: "Start?"
+                        }
                   echo "Repacking ${appName} ${FOO} UI..."
                     echo "Repacking '${appName}' UI..."
                       echo 'Repacking ${appName} UI...'
@@ -62,8 +65,8 @@ pipeline {
             steps {
                 echo "${FOO}"
                 echo "${env.BAR}"
-                sh 'mkdir SUBFOLDER -p'
-                sh 'pwd'
+                bat 'mkdir SUBFOLDER -p'
+                bat 'pwd'
             
             }
         }
@@ -71,17 +74,17 @@ pipeline {
             steps {
                 dir(path: 'SUBFOLDER') {
                   echo 'Inside subf..'
-                  sh 'pwd'
+                  bat 'pwd'
                 }
                 echo 'Outside subf..'
-                sh 'pwd'
+                bat 'pwd'
             
             }
         }
         stage('Subfolder2') {
             steps {
                 echo 'Outside subf..'
-                sh 'pwd'
+                bat 'pwd'
             
             }
         }
@@ -95,7 +98,7 @@ pipeline {
          
             steps {
               // bat('set')
-            sh "printenv | sort"
+            bat "printenv | sort"
             }
         }
         
