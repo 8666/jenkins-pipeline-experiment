@@ -21,9 +21,15 @@ pipeline {
             }
         }
         stage('Fake Main Deploy') {
+                        environment {
+
+                    FOO = "2.0.${BUILD_NUMBER}"
+                    BAR = "xyz2"
+                    appName = "ConfigurationPortal2" 
+                }   
             when { branch 'main' }
             steps {
-                  echo "Repacking ${appName} UI..."
+                  echo "Repacking ${appName} ${FOO} UI..."
                     echo "Repacking '${appName}' UI..."
                       echo 'Repacking ${appName} UI...'
                         echo 'Repacking "${appName}" UI...'
