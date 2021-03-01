@@ -28,18 +28,13 @@ pipeline {
                     appName = "ConfigurationPortal2" 
                 }   
             steps {
-                          timeout(time:2, unit:'MINUTES') {
-                           input message: "Start?"
+                  timeout(time:2, unit:'MINUTES') {
+                  input message: "Start?"
                         }
                   echo "Repacking ${appName} ${FOO} UI..."
-                    echo "Repacking '${appName}' UI..."
-                      echo 'Repacking ${appName} UI...'
-                        echo 'Repacking "${appName}" UI...'
-
-
-                  
-   
-                  
+                  echo "Repacking '${appName}' UI..."
+                  echo 'Repacking ${appName} UI...'
+                  echo 'Repacking "${appName}" UI...'                  
                   
                 echo 'Deploying'
                 echo "${BRANCH_NAME}"
@@ -47,7 +42,7 @@ pipeline {
                     FOO = "${BRANCH_NAME}"
                     env.BAR = "bar2"
                     def tokenizedURL = FOO.split(/\/v/)
-                    print 'tokenizedURL: ' + tokenizedURL + '\n'
+                    print 'tokenizedURL: ' + tokenizedURL[1] + '\n'
                 }
             }
         }
