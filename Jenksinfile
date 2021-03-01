@@ -5,10 +5,9 @@ pipeline {
         }
     }
     environment {
-    
         FOO = "1.0.${BUILD_NUMBER}"
         BAR = "xyz"
-        appName = "ConfigurationPortal" 
+        appName = "CPortal" 
     }    
     options { 
         disableConcurrentBuilds() 
@@ -21,14 +20,13 @@ pipeline {
             }
         }
         stage('Fake Main Deploy') {
-                        environment {
-
+            environment {
                     FOO = "2.0.${BUILD_NUMBER}"
                     BAR = "xyz2"
                     appName = "ConfigurationPortal2" 
                 }   
             steps {
-                  timeout(time:2, unit:'MINUTES') {
+                  timeout(time:1, unit:'MINUTES') {
                   input message: "Start?"
                         }
                   echo "Repacking ${appName} ${FOO} UI..."
@@ -36,14 +34,14 @@ pipeline {
                   echo 'Repacking ${appName} UI...'
                   echo 'Repacking "${appName}" UI...'                  
                   
-                echo 'Deploying'
-                echo "${BRANCH_NAME}"
-                script {
+                  echo 'Deploying'
+                  echo "${BRANCH_NAME}"
+                  script {
                     FOO = "${BRANCH_NAME}"
                     env.BAR = "bar2"
-                    def tokenizedURL = FOO.split(/\/v/)
-                    print 'tokenizedURL: ' + tokenizedURL[1] + '\n'
-                }
+                    def SVERSION = FOO.split(/\/v/)
+                    print 'SVERSION: ' + SVERSION[1] + '\n'
+                 }
             }
         }
         stage('Fake Develop Deploy') {
@@ -109,15 +107,11 @@ pipeline {
                         echo 'Building'
                     }
                 }
-                stage('Main 2') {
-                    steps {
-                        echo 'Archiving Aritfacts'
-                       /// archiveArtifacts artifacts: '/*.zip', fingerprint: true
-                    }
-                }
                 stage('Main 3') {
                     steps {
                         echo 'Deploying'
+                        echo 'Archiving Aritfacts'
+                       /// archiveArtifacts artifacts: '/*.zip', fingerprint: true
                         timeout(time:5, unit:'MINUTES') {
                            input message: "Approve build?"
                         }
