@@ -42,7 +42,7 @@ pipeline {
                     def LVERSION = BRANCH.split(/\/v/)
                     env.FVERSION = LVERSION[1] + '.' + "${BUILD_NUMBER}"
                  }
-                 echo "${FVERSION}"
+                 echo "${env.FVERSION}"
             }
         }
         stage('Fake Develop Deploy') {
