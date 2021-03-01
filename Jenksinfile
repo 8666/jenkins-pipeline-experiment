@@ -40,7 +40,7 @@ pipeline {
                     FOO = "${BRANCH_NAME}"
                     env.BAR = "bar2"
                     def SVERSION = FOO.split(/\/v/)
-                    print 'SVERSION: ' + SVERSION[1] + '.' + ${BUILD_NUMBER} +'\n'
+                    print 'SVERSION: ' + SVERSION[1] + '.' + "${BUILD_NUMBER}" +'\n'
                  }
             }
         }
