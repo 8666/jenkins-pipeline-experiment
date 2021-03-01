@@ -27,7 +27,6 @@ pipeline {
                     BAR = "xyz2"
                     appName = "ConfigurationPortal2" 
                 }   
-            when { branch 'main' }
             steps {
                           timeout(time:2, unit:'MINUTES') {
                            input message: "Start?"
@@ -45,8 +44,10 @@ pipeline {
                 echo 'Deploying'
                 echo "${BRANCH_NAME}"
                 script {
-                    FOO = "test2"
+                    FOO = "${BRANCH_NAME}"
                     env.BAR = "bar2"
+                    def tokenizedURL = FOO.split(/\/v/)
+                    print 'tokenizedURL: ' + tokenizedURL + '\n'
                 }
             }
         }
