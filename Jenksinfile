@@ -23,7 +23,7 @@ pipeline {
             environment {
                     FOO = "2.0.${BUILD_NUMBER}"
                     BAR = "xyz2"
-                    FVERSION = "-"
+               
                     appName = "ConfigurationPortal2" 
                 }   
             steps {
