@@ -23,6 +23,7 @@ pipeline {
             environment {
                     FOO = "2.0.${BUILD_NUMBER}"
                     BAR = "xyz2"
+                    FVERSION = "-"
                     appName = "ConfigurationPortal2" 
                 }   
             steps {
@@ -37,10 +38,9 @@ pipeline {
                   echo 'Deploying'
                   echo "${BRANCH_NAME}"
                   script {
-                    env.BAR = "bar2"
                     BRANCH = "${BRANCH_NAME}"
-                    def env.LVERSION = BRANCH.split(/\/v/)
-                    print 'FVERSION: ' + env.LVERSION[1] + '.' + "${BUILD_NUMBER}" +'\n'
+                    def LVERSION = BRANCH.split(/\/v/)
+                    env.FVERSION = LVERSION[1] + '.' + "${BUILD_NUMBER}"
                  }
                  echo "${FVERSION}"
             }
