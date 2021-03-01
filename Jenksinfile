@@ -37,11 +37,12 @@ pipeline {
                   echo 'Deploying'
                   echo "${BRANCH_NAME}"
                   script {
-                    FOO = "${BRANCH_NAME}"
                     env.BAR = "bar2"
-                    def SVERSION = FOO.split(/\/v/)
-                    print 'SVERSION: ' + SVERSION[1] + '.' + "${BUILD_NUMBER}" +'\n'
+                    BRANCH = "${BRANCH_NAME}"
+                    def env.LVERSION = BRANCH.split(/\/v/)
+                    print 'FVERSION: ' + env.LVERSION[1] + '.' + "${BUILD_NUMBER}" +'\n'
                  }
+                 echo "${FVERSION}"
             }
         }
         stage('Fake Develop Deploy') {
