@@ -32,7 +32,9 @@ pipeline {
             
             
                        script {
-                def script = '''jq '.version' json.json -r'''   
+                def script = '''$string = $(jq '.version' json.json -r)
+                                $string.Split(".")[0] + "." + $string.Split(".")[1]
+                '''   
                 def status = pwsh(script: script, returnStdout: true).trim()
                 echo "$status"
                 }
