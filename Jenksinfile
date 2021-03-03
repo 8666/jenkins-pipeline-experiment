@@ -67,6 +67,9 @@ pipeline {
                 echo "${env.BAR}"
                 bat 'mkdir SUBFOLDER -p'
                 bat 'pwd'
+          
+                def status = bat(script: version.bat, returnStdout: true)
+                echo "$status"
             
             }
         }
