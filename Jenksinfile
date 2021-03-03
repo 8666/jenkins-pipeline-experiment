@@ -40,14 +40,14 @@ pipeline {
  
                 VERSION = "-alpha2"
                 VERSION1 = "$status"
-                VERSION2 = $status
+               
                 echo "$status"
                 
                 }
 
                 echo "${VERSION}"
                 echo "${VERSION1}"
-                echo "${VERSION2}"
+               // echo "${VERSION2}"
          
      
                 
