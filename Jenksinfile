@@ -39,12 +39,16 @@ pipeline {
                 def status = pwsh(script: script, returnStdout: true).trim()
                 env.VERSION = "-alpha"
                 echo "$status"
+                       FOO = "de2v"
+                    env.BAR = "de2v"
                 
                 }
             //    echo "${status}"
              //   echo "${env.status}"
              //   echo "$VERSION"
-                echo "${env.VERSION}"               
+                echo "${env.VERSION}"       
+                    echo "${FOO}"
+                echo "${env.BAR}"
                 
                           timeout(time:2, unit:'MINUTES') {
                            input message: "Start?"
