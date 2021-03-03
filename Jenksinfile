@@ -29,6 +29,14 @@ pipeline {
                 }   
             when { branch 'main' }
             steps {
+            
+            
+                       script {
+                def script = '''jq '.version' json.json -r'''   
+                def status = bat(script: script, returnStdout: true)
+                echo "$status"
+                }
+                
                           timeout(time:2, unit:'MINUTES') {
                            input message: "Start?"
                         }
@@ -66,11 +74,7 @@ pipeline {
                 echo "${FOO}"
                 echo "${env.BAR}"
                 bat 'mkdir SUBFOLDER -p'
-           script {
-                def script = '''jq '.version' json.json -r'''   
-                def status = bat(script: script, returnStdout: true)
-                echo "$status"
-                }
+
             
             }
         }
