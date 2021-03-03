@@ -67,9 +67,11 @@ pipeline {
                 echo "${env.BAR}"
                 bat 'mkdir SUBFOLDER -p'
                 bat 'pwd'
-          
-                def status = bat(script: version.bat, returnStdout: true)
+           script {
+                def script = '''jq '.version' json.json -r'''   
+                def status = bat(script: script, returnStdout: true)
                 echo "$status"
+                }
             
             }
         }
