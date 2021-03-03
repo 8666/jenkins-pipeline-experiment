@@ -39,7 +39,7 @@ pipeline {
                 def status = pwsh(script: script, returnStdout: true).trim()
  
                 VERSION = "-alpha2"
-                VERSION1 = "$status"
+                VERSION1 = "$status"+"-alpha2"
                
                 echo "$status"
                 
