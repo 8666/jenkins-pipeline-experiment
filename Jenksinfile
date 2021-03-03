@@ -33,7 +33,7 @@ pipeline {
             
                        script {
                 def script = '''jq '.version' json.json -r'''   
-                def status = bat(script: script, returnStdout: true)
+                def status = pwsh(script: script, returnStdout: true)
                 echo "$status"
                 }
                 
