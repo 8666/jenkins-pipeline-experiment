@@ -39,9 +39,9 @@ pipeline {
                 def VERSION = $status+ ${BUILD_NUMBER} + "-alpha"
                 echo "$status"
                 }
-                echo "$status"
+               // echo "$status"
                 echo "env.status"
-                 echo "$VERSION"
+              //   echo "$VERSION"
                 echo "env.VERSION"               
                 
                           timeout(time:2, unit:'MINUTES') {
