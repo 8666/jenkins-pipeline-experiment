@@ -36,7 +36,7 @@ pipeline {
                                 $string.Split(".")[0] + "." + $string.Split(".")[1]
                 '''   
                 def status = pwsh(script: script, returnStdout: true).trim()
-                env.VERSION = status + "-alpha"
+                env.VERSION = "-alpha"
                 echo "$status"
                 
                 }
