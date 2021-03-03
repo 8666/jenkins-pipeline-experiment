@@ -40,23 +40,18 @@ pipeline {
                 echo "$status"
                 
                 }
-             //   echo "$status"
-            //    echo "env.status"
-               //  echo "$VERSION"
-                echo "env.VERSION"               
+                echo "${status}"
+                echo "${env.status}"
+                echo "$VERSION"
+                echo "$(env.VERSION)"               
                 
                           timeout(time:2, unit:'MINUTES') {
                            input message: "Start?"
                         }
                   echo "Repacking ${appName} ${FOO} UI..."
-                    echo "Repacking '${appName}' UI..."
-                      echo 'Repacking ${appName} UI...'
-                        echo 'Repacking "${appName}" UI...'
-
-
-                  
-   
-                  
+                  echo "Repacking '${appName}' UI..."
+                  echo 'Repacking ${appName} UI...'
+                  echo 'Repacking "${appName}" UI...'            
                   
                 echo 'Deploying'
                 echo "${BRANCH_NAME}"
