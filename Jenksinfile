@@ -25,7 +25,8 @@ pipeline {
 
                     FOO = "2.0.${BUILD_NUMBER}"
                     BAR = "xyz2"
-                    appName = "ConfigurationPortal2" 
+                    appName = "CPortal2" 
+                    VERSION = "C2" 
                 }   
             when { branch 'main' }
             steps {
@@ -40,9 +41,9 @@ pipeline {
                 echo "$status"
                 
                 }
-                echo "${status}"
-                echo "${env.status}"
-                echo "$VERSION"
+            //    echo "${status}"
+             //   echo "${env.status}"
+             //   echo "$VERSION"
                 echo "${env.VERSION}"               
                 
                           timeout(time:2, unit:'MINUTES') {
