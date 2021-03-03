@@ -43,7 +43,7 @@ pipeline {
                 echo "${status}"
                 echo "${env.status}"
                 echo "$VERSION"
-                echo "$(env.VERSION)"               
+                echo "${env.VERSION}"               
                 
                           timeout(time:2, unit:'MINUTES') {
                            input message: "Start?"
