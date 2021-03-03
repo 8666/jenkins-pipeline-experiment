@@ -36,8 +36,13 @@ pipeline {
                                 $string.Split(".")[0] + "." + $string.Split(".")[1]
                 '''   
                 def status = pwsh(script: script, returnStdout: true).trim()
+                def VERSION = $status+ ${BUILD_NUMBER} + "-alpha"
                 echo "$status"
                 }
+                echo "$status"
+                echo "env.status"
+                 echo "$VERSION"
+                echo "env.VERSION"               
                 
                           timeout(time:2, unit:'MINUTES') {
                            input message: "Start?"
