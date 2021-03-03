@@ -40,9 +40,9 @@ pipeline {
                 echo "$status"
                 
                 }
-                echo "$status"
-                echo "env.status"
-                 echo "$VERSION"
+             //   echo "$status"
+            //    echo "env.status"
+               //  echo "$VERSION"
                 echo "env.VERSION"               
                 
                           timeout(time:2, unit:'MINUTES') {
