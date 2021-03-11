@@ -24,7 +24,7 @@ pipeline {
             steps {
                 echo 'Building..'
                     script {
-                        def LVERSION = BRANCH.split(/\/v/)
+                        def LVERSION = env.BRANCH_NAME.split(/\/v/)
                         env.FVERSION = LVERSION[1] + '.' + "${BUILD_NUMBER}"
                         VERSION = env.FVERSION
                     }
