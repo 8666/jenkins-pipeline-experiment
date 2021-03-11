@@ -26,8 +26,9 @@ pipeline {
                     script {
                         def LVERSION = BRANCH.split(/\/v/)
                         env.FVERSION = LVERSION[1] + '.' + "${BUILD_NUMBER}"
+                        VERSION = env.FVERSION
                     }
-                VERSION = env.FVERSION
+                
                 echo "Calculated version number: ${env.FVERSION}"
                 echo "version1 number: ${env.FVERSION}"
                 echo "version2 number: ${VERSION}"
