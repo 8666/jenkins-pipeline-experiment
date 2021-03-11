@@ -25,12 +25,10 @@ pipeline {
                 echo 'Building..'
                     script {
                         def LVERSION = env.BRANCH_NAME.split(/\/v/)
-                        env.FVERSION = LVERSION[1] + '.' + "${BUILD_NUMBER}"
-                        VERSION = env.FVERSION
+                        VERSION = LVERSION[1] + '.' + "${BUILD_NUMBER}"
+                      
                     }
                 
-                echo "Calculated version number: ${env.FVERSION}"
-                echo "version1 number: ${env.FVERSION}"
                 echo "version2 number: ${VERSION}"
 
 
@@ -42,7 +40,6 @@ pipeline {
             steps {
 
                 echo 'Publishing To Nexus....'
-                echo "version3 number: ${env.FVERSION}"
                 echo "version4 number: ${VERSION}"
          
             }
