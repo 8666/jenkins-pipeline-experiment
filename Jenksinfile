@@ -20,113 +20,31 @@ pipeline {
                  echo "Starting: ${JOB_NAME} - ${BUILD_DISPLAY_NAME}, ${BUILD_NUMBER} - ${BUILD_ID}"
             }
         }
-        stage('Fake Main Deploy') {
-        environment {
-                    FOO = "2.0.${BUILD_NUMBER}"
-                    BAR = "xyz2"
-                    appName = "CPortal2" 
-                    VERSION = "C2" 
-        }   
-        when { branch 'main' }
+        stage('(Release) Build') {
             steps {
-            
-            
-                       script {
-                def script = '''$string = $(jq '.version' json.json -r)
-                                $string.Split(".")[0] + "." + $string.Split(".")[1]
-                '''   
-                def status = pwsh(script: script, returnStdout: true).trim()
-                VERSION = "$status"+".${BUILD_NUMBER}-alpha"             
-                echo "$status"
-                }
-                echo "${VERSION}"
+                echo 'Building..'
+                    script {
+                        def LVERSION = BRANCH.split(/\/v/)
+                        env.FVERSION = LVERSION[1] + '.' + "${BUILD_NUMBER}"
+                    }
+                VERSION = env.FVERSION
+                echo "Calculated version number: ${env.FVERSION}"
+                echo "version1 number: ${env.FVERSION}"
+                echo "version2 number: ${VERSION}"
 
 
-                 //  timeout(time:2, unit:'MINUTES') {input message: "Start?"}
-                   
-                  echo "Repacking ${appName} ${FOO} UI..."
-                  echo "Repacking '${appName}' UI..."
-                  echo 'Repacking ${appName} UI...'
-                  echo 'Repacking "${appName}" UI...'            
-                  
-                echo 'Deploying'
-                echo "${BRANCH_NAME}"
-                script {
-                    FOO = "test2"
-                    env.BAR = "bar2"
-                }
-            }
-        }
-        stage('Fake Develop Deploy') {
-            when { branch 'develop' }
-            steps {
-                echo 'Deploying'
-                echo "${BRANCH_NAME}"
-                script {
-                    FOO = "dev"
-                    env.BAR = "dev"
-                }
-            }
-        }
-        stage('Final') {
-            steps {
-            
              
-                echo "${FOO}"
-                echo "${env.BAR}"
-                bat 'mkdir SUBFOLDER -p'
+            }
+        }
 
-            
-            }
-        }
-        stage('Subfolder2') {
+        stage('(Release) Publish Nuget package To Nexus') {
             steps {
-                echo 'Outside subf..'
-                bat 'pwd'
-            
-            }
-        }
-        stage('Env Vars') {
-        when {
-           expression {
-           echo "BRANCH_NAME ${BRANCH_NAME}"
-           return ("${BRANCH_NAME}"=="main")
-           }
-           }
+
+                echo 'Publishing To Nexus....'
+                echo "version3 number: ${env.FVERSION}"
+                echo "version4 number: ${VERSION}"
          
-            steps {
-              // bat('set')
-            bat "printenv | sort"
             }
-        }
-        
-        
-        stage('Main branch only') {
-            when {
-            branch 'main' 
-            }
-            stages {
-                stage('Main 1') {
-                    steps {
-                        echo 'Building'
-                    }
-                }
-                stage('Main 2') {
-                    steps {
-                        echo 'Archiving Aritfacts'
-                       /// archiveArtifacts artifacts: '/*.zip', fingerprint: true
-                    }
-                }
-                stage('Main 3') {
-                    steps {
-                        echo 'Deploying'
-                        timeout(time:1, unit:'MINUTES') {
-                           input message: "Approve build?"
-                        }
-                    }
-                }
-            }
-
         }
     }
 }
