@@ -5,121 +5,46 @@ pipeline {
         }
     }
     environment {
+    
         FOO = "1.0.${BUILD_NUMBER}"
         BAR = "xyz"
-        appName = "CPortal" 
+        appName = "ConfigurationPortal" 
     }    
     options { 
         disableConcurrentBuilds() 
     }
     stages {
         stage('Fake Build') {
-        when { not { anyOf { branch 'develop'; branch 'main' }}}
             steps {
                 echo 'Something else, like random'
+                 echo "Starting: ${JOB_NAME} - ${BUILD_DISPLAY_NAME}, ${BUILD_NUMBER} - ${BUILD_ID}"
             }
         }
-        stage('Fake Main Deploy') {
-            environment {
-                    FOO = "2.0.${BUILD_NUMBER}"
-                    BAR = "xyz2"
-               
-                    appName = "ConfigurationPortal2" 
-                }   
+        stage('(Release) Build') {
             steps {
-                  timeout(time:1, unit:'MINUTES') {
-                  input message: "Start?"
-                        }
-                  echo "Repacking ${appName} ${FOO} UI..."
-                  echo "Repacking '${appName}' UI..."
-                  echo 'Repacking ${appName} UI...'
-                  echo 'Repacking "${appName}" UI...'                  
-                  
-                  echo 'Deploying'
-                  echo "${BRANCH_NAME}"
-                  script {
-                    BRANCH = "${BRANCH_NAME}"
-                    def LVERSION = BRANCH.split(/\/v/)
-                    env.FVERSION = LVERSION[1] + '.' + "${BUILD_NUMBER}"
-                 }
-                 echo "${env.FVERSION}"
-            }
-        }
-        stage('Fake Develop Deploy') {
-            when { branch 'develop' }
-            steps {
-                echo 'Deploying'
-                echo "${BRANCH_NAME}"
-                script {
-                    FOO = "dev"
-                    env.BAR = "dev"
-                }
-            }
-        }
-        stage('Final') {
-            steps {
-                echo "${FOO}"
-                echo "${env.BAR}"
-                bat 'mkdir SUBFOLDER -p'
-                bat 'pwd'
-            
-            }
-        }
-        stage('Subfolder') {
-            steps {
-                dir(path: 'SUBFOLDER') {
-                  echo 'Inside subf..'
-                  bat 'pwd'
-                }
-                echo 'Outside subf..'
-                bat 'pwd'
-            
-            }
-        }
-        stage('Subfolder2') {
-            steps {
-                echo 'Outside subf..'
-                bat 'pwd'
-            
-            }
-        }
-        stage('Env Vars') {
-        when {
-           expression {
-           echo "BRANCH_NAME ${BRANCH_NAME}"
-           return ("${BRANCH_NAME}"=="main")
-           }
-           }
-         
-            steps {
-              // bat('set')
-            bat "printenv | sort"
-            }
-        }
-        
-        
-        stage('Main branch only') {
-            when {
-            branch 'main' 
-            }
-            stages {
-                stage('Main 1') {
-                    steps {
-                        echo 'Building'
+                echo 'Building..'
+                    script {
+                        def LVERSION = BRANCH.split(/\/v/)
+                        env.FVERSION = LVERSION[1] + '.' + "${BUILD_NUMBER}"
                     }
-                }
-                stage('Main 3') {
-                    steps {
-                        echo 'Deploying'
-                        echo 'Archiving Aritfacts'
-                       /// archiveArtifacts artifacts: '/*.zip', fingerprint: true
-                        timeout(time:5, unit:'MINUTES') {
-                           input message: "Approve build?"
-                        }
-                    }
-                }
-            }
+                VERSION = env.FVERSION
+                echo "Calculated version number: ${env.FVERSION}"
+                echo "version1 number: ${env.FVERSION}"
+                echo "version2 number: ${VERSION}"
 
+
+             
+            }
+        }
+
+        stage('(Release) Publish Nuget package To Nexus') {
+            steps {
+
+                echo 'Publishing To Nexus....'
+                echo "version3 number: ${env.FVERSION}"
+                echo "version4 number: ${VERSION}"
+         
+            }
         }
     }
 }
