@@ -80,7 +80,7 @@ pipeline {
         }
         stage('Final') {
             steps {
-             "Starting: ${JOB_NAME} - ${BUILD_DISPLAY_NAME}, ${BUILD_NUMBER} - ${BUILD_ID}"
+             echo "Starting: ${JOB_NAME} - ${BUILD_DISPLAY_NAME}, ${BUILD_NUMBER} - ${BUILD_ID}"
              
                 echo "${FOO}"
                 echo "${env.BAR}"
